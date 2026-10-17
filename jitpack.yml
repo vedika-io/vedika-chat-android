@@ -1,0 +1,14 @@
+# JitPack's build image sets ANDROID_HOME but ships no platform under it, and
+# this library compiles against platform 34. Install it before Gradle runs:
+# first with the bundled sdkmanager, then, if that is too old to know the
+# platform, with a fresh cmdline-tools sdkmanager pointed at the same
+# ANDROID_HOME through --sdk_root.
+before_install:
+  - yes | "$ANDROID_HOME/tools/bin/sdkmanager" --licenses > /tmp/sdk_lic_old.log 2>&1; true
+  - $ANDROID_HOME/tools/bin/sdkmanager "platforms;android-34" > /tmp/sdk_install_old.log 2>&1; tail -20 /tmp/sdk_install_old.log; true
+  - bash -c 'if [ ! -f "$ANDROID_HOME/platforms/android-34/android.jar" ]; then mkdir -p /tmp/cmdline-tools-fresh && curl -sL -o /tmp/cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip && unzip -q /tmp/cmdline-tools.zip -d /tmp/cmdline-tools-fresh && yes | /tmp/cmdline-tools-fresh/cmdline-tools/bin/sdkmanager --sdk_root="$ANDROID_HOME" --licenses > /tmp/sdk_lic_new.log 2>&1; /tmp/cmdline-tools-fresh/cmdline-tools/bin/sdkmanager --sdk_root="$ANDROID_HOME" "platforms;android-34" > /tmp/sdk_install_new.log 2>&1; tail -20 /tmp/sdk_install_new.log; fi; true'
+  - test -f "$ANDROID_HOME/platforms/android-34/android.jar" && echo "ANDROID_PLATFORM_READY" || echo "ANDROID_PLATFORM_MISSING"
+jdk:
+  - openjdk17
+install:
+  - ./gradlew --no-daemon :library:publishToMavenLocal

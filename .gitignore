@@ -1,0 +1,8 @@
+# Gradle / Android build artefacts for the Vedika chat Android SDK.
+.gradle/
+build/
+local.properties
+*.iml
+.idea/
+captures/
+.cxx/

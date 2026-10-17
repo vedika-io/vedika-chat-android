@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- The chat page is hosted by default: the WebView loads it over
+         https, so a chat fix reaches installed apps without an app
+         release. That needs the INTERNET permission, which is a normal
+         (install-time) permission. A host that opts into a pinned copy
+         of the page in its assets still needs it for the host backend
+         that mints the chat tokens. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>

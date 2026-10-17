@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "entry": "index.html",
+  "entries": [
+    {
+      "path": "index.html",
+      "sha256": "521817e72ae821fffa58df1f3b09daf40e4453bbe0fa31bd06208e2eed46b57b",
+      "size": 778
+    },
+    {
+      "path": "runtime.js",
+      "sha256": "02e6c23d5ed38fa40c17cab3cb583dc681cbab35203c60eafbbc897ffdd7d12e",
+      "size": 365
+    }
+  ]
+}
